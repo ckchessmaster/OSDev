@@ -1,0 +1,9 @@
+file: 'uan.img'
+size: 100M
+type: gpt
+partitions:
+- fs: fat32
+  size: fit
+  bootable: true
+  content: 'tmp'
+  label: boot
