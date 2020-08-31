@@ -1,8 +1,0 @@
-clang:
-clang -target x86_64-elf -ffreestanding -mno-red-zone -c -o build/obj/kernel.o kernel.c
-clang -target x86_64-elf -nostdlib -o build/bin/UAN.elf build/obj/kernel.o -T linker.ld
-
-Make ISO:
-cp bin/myos.bin isodir/boot/myos.bin
-cp grub.cfg isodir/boot/grub/grub.cfg
-grub-mkrescue -o myos.iso isodir

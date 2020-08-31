@@ -1,5 +1,1 @@
-obj/
-bin/
-release/
-tmp/
-BOOTX64.EFI
+build/

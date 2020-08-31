@@ -1,0 +1,12 @@
+{
+    "diskguid": "00000000-0000-0000-0000-000000000000",
+    "disksize": 128,
+    "config": "config/boot.config",
+    "initrd": { "type": "tar", "gzip": true, "directory": "build/iso/boot"},
+    "iso9660": 1,
+    "partitions": [
+        { "type": "boot", "size": 16 },
+        { "type": "Microsoft basic data", "size": 100, "name": "data", "directory": "build/iso/UEFI" }
+    ]
+
+}

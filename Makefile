@@ -1,28 +1,29 @@
+CFLAGS=-Wall -fpic -ffreestanding -fno-stack-protector -nostdinc -nostdlib -mno-red-zone -Iextern
+LDFLAGS=-nostdlib -nostartfiles
 CC=clang
-CFLAGS=-target x86_64-elf -ffreestanding -mno-red-zone
-LDFLAGS=-target x86_64-elf -nostdlib
+LD=ld
 
-uan.img: setup kernel.elf
-	mkdir -p tmp/EFI/BOOT
-	cp BOOTX64.EFI tmp/EFI/BOOT
-	cp bin/kernel.elf tmp
-	cp tomatboot.cfg tmp
-	python3 ../image-builder/image-builder.py image-builder.yaml
-	mv uan.img release
-	cp release/uan.img release/uan.hdd
-	rm -r tmp
+all: uan.iso
 
-kernel.elf: setup kernel.o
-	$(CC) $(LDFLAGS) -o bin/kernel.elf obj/kernel.o -T src/linker.ld
+uan.iso: kernel.elf
+	mkdir -p build/release
+	mkdir -p build/iso/UEFI/EFI/BOOT
+	mkdir -p build/iso/boot
+	cp config/boot.config build/iso/boot
+	cp build/bin/kernel.elf build/iso/boot
+	../bootboot/mkbootimg/mkbootimg config/image.json build/release/uan.iso
 
-kernel.o: setup
-	$(CC) $(CFLAGS) -c -o obj/kernel.o src/kernel.c
-
-setup:
-	mkdir -p obj
-	mkdir -p bin
-	mkdir -p release
+kernel.elf:
+	mkdir -p build/obj
+	mkdir -p build/bin
+	$(CC) $(CFLAGS) -c src/kernel.c -o build/obj/kernel.o
+	$(LD) -r -b binary -o build/obj/font.o font.psf
+	$(LD) $(LDFLAGS) -T src/link.ld build/obj/kernel.o build/obj/font.o -o build/bin/kernel.elf
 
 clean:
-	rm -f obj/*
-	rm -f bin/*
+	rm -f build/obj/*
+	rm -f build/bin/*
+	rm -f -r build/iso/*
+
+clean-full:
+	rm -f -r build/*
