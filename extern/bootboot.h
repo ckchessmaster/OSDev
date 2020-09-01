@@ -73,7 +73,9 @@ extern "C" {
 typedef struct {
   uint64_t   ptr;
   uint64_t   size;
-} __attribute__((packed)) MMapEnt;
+} MMapEnt;
+//__attribute__((packed))
+
 #define MMapEnt_Ptr(a)  (a->ptr)
 #define MMapEnt_Size(a) (a->size & 0xFFFFFFFFFFFFFFF0)
 #define MMapEnt_Type(a) (a->size & 0xF)
@@ -134,7 +136,6 @@ typedef struct {
    * MMapEnt *mmap_ent = &bootboot.mmap; mmap_ent++;
    * until you reach bootboot->size */
 } __attribute__((packed)) BOOTBOOT;
-
 
 #ifdef  __cplusplus
 }

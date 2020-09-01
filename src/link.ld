@@ -28,8 +28,8 @@
  *
  */
 
-mmio  = 0xfffffffff8000000;                    /* these are configurable for level 2 loaders */
-fb    = 0xfffffffffc000000;
+mmio        = 0xfffffffff8000000;              /* these are configurable for level 2 loaders */
+framebuffer = 0xfffffffffc000000;
 PHDRS
 {
   boot PT_LOAD;                                /* one single loadable segment */
