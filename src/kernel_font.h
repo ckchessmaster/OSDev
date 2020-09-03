@@ -1,3 +1,6 @@
+#ifndef _KERNEL_FONT_H_
+#define _KERNEL_FONT_H_
+
 #include <stdint.h>
 
 #define PSF_FONT_MAGIC 0x864ab572
@@ -27,3 +30,5 @@ class KernelFont {
         unsigned int getHeight();
         unsigned int getWidth();
 };
+
+#endif

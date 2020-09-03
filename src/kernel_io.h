@@ -1,3 +1,6 @@
+#ifndef _KERNEL_IO_H_
+#define _KERNEL_IO_H_
+
 #include <stdint.h>
 #include <bootboot.h>
 
@@ -20,3 +23,5 @@ class KernelIO {
         static void print(const char* string);
         static void error(const char* string);
 };
+
+#endif

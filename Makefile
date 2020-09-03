@@ -1,12 +1,13 @@
 CFLAGS	=-Wall -fpic -ffreestanding -fno-stack-protector -mno-red-zone -fno-rtti -fno-exceptions -Iextern
 LDFLAGS	=-nostdlib -nostartfiles
-CC		:= clang++
+CC++	:= clang++
+CC		:= clang
 LD		:= ld
 BIN     := build/bin
 OBJ     := build/obj
 SRC     := src
-SRCS    := $(wildcard $(SRC)/*.cpp)
-OBJS    := $(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
+SRCS    := $(wildcard $(SRC)/**/*.cpp)
+OBJS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 KERNEL  := $(BIN)/kernel.elf
 RELEASE := build/release/uan.iso
 
@@ -24,7 +25,7 @@ $(KERNEL): $(OBJS) | $(BIN)
 	$(LD) $(LDFLAGS) -T src/link.ld build/obj/font.o $^ -o $@
 
 $(OBJ)/%.o: $(SRC)/%.cpp | $(OBJ)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC++) $(CFLAGS) -c $< -o $@
 
 setup:
 	mkdir -p build/obj
