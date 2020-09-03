@@ -1,1 +1,0 @@
-void print(char const *s);

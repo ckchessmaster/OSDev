@@ -101,10 +101,10 @@ typedef struct {
   uint64_t   initrd_ptr;  /* ramdisk image position and size */
   uint64_t   initrd_size;
   uint8_t    *fb_ptr;     /* framebuffer pointer and dimensions */
-  uint32_t   fb_size;
-  uint32_t   fb_width;
-  uint32_t   fb_height;
-  uint32_t   fb_scanline;
+  unsigned int fb_size;
+  unsigned int fb_width;
+  unsigned int fb_height;
+  unsigned int fb_scanline;
 
   /* the rest (64 bytes) is platform specific */
   union {
