@@ -1,15 +1,19 @@
-CFLAGS	=-Wall -fpic -ffreestanding -fno-stack-protector -mno-red-zone -fno-rtti -fno-exceptions -Iextern
-LDFLAGS	=-nostdlib -nostartfiles
 CC++	:= clang++
 CC		:= clang
 LD		:= ld
-BIN     := build/bin
-OBJ     := build/obj
+
+CFLAGS	=-Wall -fpic -ffreestanding -fno-stack-protector -mno-red-zone -fno-rtti -fno-exceptions -Iextern
+LDFLAGS	=-nostdlib -nostartfiles
+
 SRC     := src
-SRCS    := $(wildcard $(SRC)/**/*.cpp)
+BUILD	:= build
+OBJ     := $(BUILD)/obj
+BIN     := $(BUILD)/bin
+RELEASE := $(BUILD)/release/uan.iso
+
+SRCS    := $(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/**/*.cpp)
 OBJS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 KERNEL  := $(BIN)/kernel.elf
-RELEASE := build/release/uan.iso
 
 .PHONY: all setup clean clean-full
 
@@ -28,14 +32,14 @@ $(OBJ)/%.o: $(SRC)/%.cpp | $(OBJ)
 	$(CC++) $(CFLAGS) -c $< -o $@
 
 setup:
-	mkdir -p build/obj
+	mkdir -p build/obj/libc
 	mkdir -p build/bin
 	mkdir -p build/release
 	mkdir -p build/iso/UEFI/EFI/BOOT
 	mkdir -p build/iso/boot
 
 clean:
-	rm -f build/obj/*
+	rm -f -r build/obj/*
 	rm -f build/bin/*
 	rm -f -r build/iso/*
 
