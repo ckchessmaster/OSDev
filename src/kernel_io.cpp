@@ -18,10 +18,18 @@ void KernelIO::print(const char* string) {
     unsigned int fontWidth = font.getWidth();
     unsigned int fontHeight = font.getHeight();
     unsigned int scanline = bootboot.fb_scanline;
+    unsigned int maxHeight = bootboot.fb_height;
 
     while (*string != '\0') {
         int x, y, mask;
         unsigned int offset, offsetX, line;
+
+        if(cursorY * (fontHeight * 4) > maxHeight) {
+            cursorY--;
+            unsigned int* moveStart = ((unsigned int*)&framebuffer + scanline + (scanline * fontHeight));
+            size_t length = sizeof(char) * scanline * (fontHeight) * cursorY;
+            memmove((&framebuffer + scanline), moveStart, length);
+        } 
 
         if(*string == '\n') {
             cursorY++;
@@ -67,7 +75,7 @@ void KernelIO::error(const char* string) {
     int scanline = bootboot.fb_scanline;
     int maxHeight = bootboot.fb_height;
 
-    foreground = 0x00FFFFFF;
+    foreground = 0x00000000;
     background = 0x00FF0000;
 
     cursorX = 0;

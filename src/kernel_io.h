@@ -5,6 +5,7 @@
 #include <bootboot.h>
 
 #include "kernel_font.h"
+#include "libc/string.h"
 
 class KernelIO {
     private:

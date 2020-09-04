@@ -21,17 +21,13 @@ void _start() {
     //KernelIO::print("Hello World!\n");
     //KernelIO::error("Error!!!!");
 
-    const char* test = "A";
-    KernelIO::print(test);
-    KernelIO::print("\n");
+    KernelIO::print("I'm going to go away soon :(\n");
 
-    const char* test2 = "B";
-    KernelIO::print(test2);
-    KernelIO::print("\n");
+    for(int x=0; x<23; x++) {
+        KernelIO::print("A\n");
+    }
 
-    memmove((void*)test, test2, sizeof(char));
-    KernelIO::print(test);
-    KernelIO::print("\n");
+    KernelIO::print("I havn't show up yet! :o\n");
 
     // OS Loop
     while(1);
